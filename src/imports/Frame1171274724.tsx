@@ -1,5 +1,5 @@
 import svgPaths from "./svg-xzgsbtk48p";
-import imgRectangle3 from "@/assets/images/ui-rectangle-accent.png";
+import imgRectangle3 from "@/assets/images/ui-rectangle-accent.webp";
 
 function MaskGroup() {
   return (

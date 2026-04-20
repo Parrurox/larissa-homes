@@ -1,11 +1,11 @@
 import svgPaths from "./svg-vhr76u2f5z";
-import imgHeroSection from "@/assets/images/hero-key-visual.png";
-import imgImage1 from "@/assets/images/marketing-showcase-1.png";
-import imgImage2 from "@/assets/images/marketing-showcase-2.png";
-import imgImage3 from "@/assets/images/marketing-showcase-3.png";
-import imgImage from "@/assets/images/marketing-hero-collage.png";
-import imgImage4 from "@/assets/images/marketing-showcase-4.png";
-import imgImage5 from "@/assets/images/marketing-showcase-5.png";
+import imgHeroSection from "@/assets/images/hero-key-visual.webp";
+import imgImage1 from "@/assets/images/marketing-showcase-1.webp";
+import imgImage2 from "@/assets/images/marketing-showcase-2.webp";
+import imgImage3 from "@/assets/images/marketing-showcase-3.webp";
+import imgImage from "@/assets/images/marketing-hero-collage.webp";
+import imgImage4 from "@/assets/images/marketing-showcase-4.webp";
+import imgImage5 from "@/assets/images/marketing-showcase-5.webp";
 
 function Logo() {
   return (

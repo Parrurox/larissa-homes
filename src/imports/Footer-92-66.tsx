@@ -1,4 +1,4 @@
-import imgImage44 from "@/assets/images/main-logo.png";
+import imgImage44 from "@/assets/images/main-logo.webp";
 
 function Container2() {
   return (

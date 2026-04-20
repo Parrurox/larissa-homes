@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import imgImage44 from "@/assets/images/main-logo.png";
+import imgImage44 from "@/assets/images/main-logo.webp";
 
 export function Footer() {
   return (

@@ -1,6 +1,6 @@
 import svgPaths from "./svg-65g8112hl1";
-import img2747932560X1600DesktopHdDubaiBackgroundImage1 from "@/assets/images/dubai-cityscape-alt.png";
-import imgImage44 from "@/assets/images/main-logo.png";
+import img2747932560X1600DesktopHdDubaiBackgroundImage1 from "@/assets/images/dubai-cityscape-alt.webp";
+import imgImage44 from "@/assets/images/main-logo.webp";
 
 function Text() {
   return (

@@ -1,5 +1,5 @@
-import imgImage1 from "@/assets/images/service-advisory.png";
-import imgImage3 from "@/assets/images/team-collaboration.png";
+import imgImage1 from "@/assets/images/service-advisory.webp";
+import imgImage3 from "@/assets/images/team-collaboration.webp";
 
 function Frame() {
   return (

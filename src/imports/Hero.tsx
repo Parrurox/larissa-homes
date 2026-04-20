@@ -1,5 +1,5 @@
 import svgPaths from "./svg-ij0xgr05cw";
-import imgImageLuxuryInterior from "@/assets/images/luxury-interior-hero.png";
+import imgImageLuxuryInterior from "@/assets/images/luxury-interior-hero.webp";
 
 function ImageLuxuryInterior() {
   return (
