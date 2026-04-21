@@ -3,6 +3,7 @@ import { Plus, Minus, Star, Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Footer } from '../components/Footer';
+import { SECTION_IDS, SCROLL_ANCHOR_CLASS } from '../constants/sections';
 
 import imgDubaiBackground from "@/assets/images/backgrounds/dubai-desktop-hd.webp";
 import imgContactBackground from "@/assets/images/backgrounds/contact-section.webp";
@@ -180,8 +181,6 @@ function NavBar({ isHomePage, onBookYourStay }: { isHomePage: boolean; onBookYou
   );
 }
 
-const FEATURED_STAYS_ID = 'featured-stays';
-
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -190,22 +189,23 @@ export default function LandingPage() {
   const isHomePage = location.pathname === '/';
   const isContactPage = location.pathname === '/contact';
 
-  const scrollFeaturedStaysIntoView = React.useCallback(() => {
-    document.getElementById(FEATURED_STAYS_ID)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollToSection = React.useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
   const handleBookYourStay = React.useCallback(() => {
     if (location.pathname === '/') {
-      scrollFeaturedStaysIntoView();
+      scrollToSection(SECTION_IDS.featuredStays);
     } else {
-      navigate({ pathname: '/', hash: FEATURED_STAYS_ID });
+      navigate({ pathname: '/', hash: SECTION_IDS.featuredStays });
     }
-  }, [location.pathname, navigate, scrollFeaturedStaysIntoView]);
+  }, [location.pathname, navigate, scrollToSection]);
 
   React.useEffect(() => {
-    if (location.pathname !== '/' || location.hash !== `#${FEATURED_STAYS_ID}`) return;
-    requestAnimationFrame(() => scrollFeaturedStaysIntoView());
-  }, [location.pathname, location.hash, scrollFeaturedStaysIntoView]);
+    const hash = location.hash.replace(/^#/, '');
+    if (!hash) return;
+    requestAnimationFrame(() => scrollToSection(hash));
+  }, [location.pathname, location.hash, scrollToSection]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -241,7 +241,7 @@ export default function LandingPage() {
           </div>
         </section>
       ) : isContactPage ? (
-        <section className="relative w-full min-h-[1000px] flex flex-col items-center">
+        <section id={SECTION_IDS.contact} className={`relative w-full min-h-[1000px] flex flex-col items-center ${SCROLL_ANCHOR_CLASS}`}>
           <div className="absolute inset-0 z-0">
             <img src={imgContactBackground} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />
             <div className="absolute inset-0 bg-black/20" />
@@ -304,8 +304,8 @@ export default function LandingPage() {
       {/* Featured Stays (Only on Home Page) */}
       {isHomePage && (
         <section
-          id={FEATURED_STAYS_ID}
-          className="bg-white py-24 px-6 lg:px-20 max-w-[1440px] mx-auto w-full scroll-mt-24"
+          id={SECTION_IDS.featuredStays}
+          className={`bg-white py-24 px-6 lg:px-20 max-w-[1440px] mx-auto w-full ${SCROLL_ANCHOR_CLASS}`}
         >
           <div className="flex flex-col gap-16">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
@@ -492,7 +492,7 @@ export default function LandingPage() {
       {/* About Section */}
       {/* About Section (Only on Home Page) */}
       {isHomePage && (
-        <section className="bg-white py-16 px-6 lg:px-20 max-w-[1440px] mx-auto">
+        <section id={SECTION_IDS.about} className={`bg-white py-16 px-6 lg:px-20 max-w-[1440px] mx-auto ${SCROLL_ANCHOR_CLASS}`}>
           <div className="bg-[#F1EFEA] rounded-[24px] flex flex-col lg:flex-row overflow-hidden min-h-[500px]">
             <div className="lg:w-1/2 relative min-h-[300px] lg:min-h-full">
               <img src={newImgAboutHero} className="absolute inset-0 w-full h-full object-cover" alt="Luxury Property Interior" />
@@ -515,7 +515,7 @@ export default function LandingPage() {
       {!isHomePage && !isContactPage && (
         <>
           {/* Section 3: Services */}
-          <section className="bg-white py-24 px-6 lg:px-20 max-w-[1440px] mx-auto flex flex-col gap-16 lg:gap-24">
+          <section id={SECTION_IDS.investment} className={`bg-white py-24 px-6 lg:px-20 max-w-[1440px] mx-auto flex flex-col gap-16 lg:gap-24 ${SCROLL_ANCHOR_CLASS}`}>
             {/* Listing Management */}
             <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24">
               <div className="w-full lg:w-1/2 h-[347px] shrink-0">
@@ -630,7 +630,7 @@ export default function LandingPage() {
       {isHomePage && <CustomerReviews />}
 
       {/* Section 5: FAQ */}
-      <section className="bg-white py-20 lg:py-40 px-6 lg:px-20 max-w-[1440px] mx-auto">
+      <section id={SECTION_IDS.faq} className={`bg-white py-20 lg:py-40 px-6 lg:px-20 max-w-[1440px] mx-auto ${SCROLL_ANCHOR_CLASS}`}>
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-24">
           <div className="lg:w-[550px] shrink-0">
             <h2 className="text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.1] md:leading-tight text-[#12161D] mb-4 lg:mb-6">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Star } from "lucide-react";
 import { motion } from "motion/react";
+import { SECTION_IDS, SCROLL_ANCHOR_CLASS } from '../constants/sections';
 
 interface Review {
   id: string;
@@ -62,7 +63,7 @@ export function CustomerReviews() {
   const [hoverRating, setHoverRating] = useState<number>(0);
 
   return (
-    <section className="w-full bg-[#f3f5f6] py-20 relative">
+    <section id={SECTION_IDS.testimonials} className={`w-full bg-[#f3f5f6] py-20 relative ${SCROLL_ANCHOR_CLASS}`}>
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         <h2 className="text-3xl md:text-5xl font-medium text-[#12161D] text-center mb-16">
           What Our Customers Say
