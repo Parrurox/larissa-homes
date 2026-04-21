@@ -35,7 +35,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-8 lg:gap-11">
               <Link
-                to="/investments"
+                to={`/investments#${SECTION_IDS.investmentsTop}`}
                 onClick={() => {
                   if (location.pathname === '/investments') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });

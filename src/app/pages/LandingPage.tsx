@@ -190,6 +190,10 @@ export default function LandingPage() {
   const isContactPage = location.pathname === '/contact';
 
   const scrollToSection = React.useCallback((id: string) => {
+    if (id === SECTION_IDS.investmentsTop) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
@@ -211,7 +215,7 @@ export default function LandingPage() {
   React.useEffect(() => {
     if (location.pathname !== '/investments') return;
     if (location.hash) return;
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname, location.hash]);
 
   React.useEffect(() => {
@@ -284,14 +288,17 @@ export default function LandingPage() {
                 </div>
               </div>
               
-              <button className="bg-white text-[#12161D] h-[38px] px-[18px] rounded-[25px] font-semibold text-[16px] flex items-center justify-center hover:bg-white/90 transition-colors">
-                Book Your Stay
+              <button type="button" className="bg-white text-[#12161D] h-[38px] px-[18px] rounded-[25px] font-semibold text-[16px] flex items-center justify-center hover:bg-white/90 transition-colors">
+                Get In Touch
               </button>
             </div>
           </div>
         </section>
       ) : (
-        <section className="relative w-full h-[600px] lg:h-[800px] overflow-hidden flex flex-col">
+        <section
+          id={SECTION_IDS.investmentsTop}
+          className="relative w-full h-[600px] lg:h-[800px] overflow-hidden flex flex-col"
+        >
           <div className="absolute inset-0 z-0">
             <img src={imgDubaiSkyline} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />
             <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center px-6">
@@ -625,9 +632,12 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <button className="bg-[#12161D] text-white px-8 py-4 rounded-[100px] font-medium text-[17px] hover:bg-[#12161D]/90 transition-colors shadow-sm w-fit">
-                Get started
-              </button>
+              <Link
+                to="/contact"
+                className="bg-[#12161D] text-white px-8 py-4 rounded-[100px] font-medium text-[17px] hover:bg-[#12161D]/90 transition-colors shadow-sm w-fit inline-flex items-center justify-center"
+              >
+                Contact Us
+              </Link>
             </div>
           </section>
         </>

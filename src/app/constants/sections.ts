@@ -4,6 +4,8 @@ export const SECTION_IDS = {
   testimonials: 'testimonials',
   about: 'about',
   faq: 'faq',
+  /** Top of /investments (and shared pricing hero) — footer “Investment” scrolls here. */
+  investmentsTop: 'investments-top',
   investment: 'investment',
   contact: 'contact',
   termsOfService: 'terms-of-service',
