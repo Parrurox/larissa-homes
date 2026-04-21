@@ -296,7 +296,7 @@ export default function LandingPage() {
             <img src={imgDubaiSkyline} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />
             <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center px-6">
               <h1 className="text-[32px] md:text-5xl lg:text-[64px] font-medium text-white tracking-tight leading-tight text-center max-w-[900px] mt-16">
-                Airbnb management that maximizes your earnings with style and comfort.
+                Airbnb management that maximizes your earnings with style and comfort
               </h1>
             </div>
           </div>
