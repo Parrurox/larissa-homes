@@ -207,6 +207,13 @@ export default function LandingPage() {
     requestAnimationFrame(() => scrollToSection(hash));
   }, [location.pathname, location.hash, scrollToSection]);
 
+  /** SPA keeps scroll position across routes; reset to top on /investments when there is no hash anchor. */
+  React.useEffect(() => {
+    if (location.pathname !== '/investments') return;
+    if (location.hash) return;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname, location.hash]);
+
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 200);

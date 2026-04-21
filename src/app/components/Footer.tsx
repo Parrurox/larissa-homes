@@ -34,7 +34,17 @@ export function Footer() {
               <Link to={`/#${SECTION_IDS.testimonials}`} className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap">Testimonials</Link>
             </div>
             <div className="flex flex-col gap-8 lg:gap-11">
-              <Link to={`/investments#${SECTION_IDS.investment}`} className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap">Investment</Link>
+              <Link
+                to="/investments"
+                onClick={() => {
+                  if (location.pathname === '/investments') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+                className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap"
+              >
+                Investment
+              </Link>
               <Link to={`/#${SECTION_IDS.about}`} className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap">About</Link>
             </div>
             <div className="flex flex-col gap-8 lg:gap-11">
