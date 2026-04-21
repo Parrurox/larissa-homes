@@ -235,7 +235,7 @@ export default function LandingPage() {
             <h1 className="text-4xl md:text-6xl lg:text-[72px] font-normal text-white leading-[1.15] tracking-tight mb-8 whitespace-normal max-w-4xl">
               Find the perfect rental<br className="hidden md:block" />
               that&nbsp;&nbsp;&nbsp;feels&nbsp;&nbsp;like&nbsp;&nbsp;home<br className="hidden md:block" />
-              with style and comfort.
+              with style and comfort
             </h1>
 
           </div>
