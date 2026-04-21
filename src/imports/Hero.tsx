@@ -33,7 +33,7 @@ function Frame1() {
 function Frame2() {
   return (
     <div className="absolute content-stretch flex flex-col gap-[40px] items-start left-[102px] top-[274px] w-[623px]">
-      <p className="font-['Aileron:Bold',sans-serif] leading-[1.4] min-w-full not-italic relative shrink-0 text-[#2e5d82] text-[56px] tracking-[-1.677px] w-[min-content]">Complete Airbnb management that maximizes your earnings with style and comfort.</p>
+      <p className="font-['Aileron:Bold',sans-serif] leading-[1.4] min-w-full not-italic relative shrink-0 text-[#2e5d82] text-[56px] tracking-[-1.677px] w-[min-content]">Complete Airbnb management that maximizes your earnings with style and comfort</p>
       <Frame1 />
     </div>
   );

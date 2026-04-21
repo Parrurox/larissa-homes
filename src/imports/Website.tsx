@@ -78,7 +78,7 @@ function Content() {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-center not-italic relative shrink-0 text-center text-white w-[624px]" data-name="Content">
       <p className="font-['Aileron:Regular',sans-serif] leading-[80px] relative shrink-0 text-[72px] tracking-[-1.8px] w-[906px]">Comprehensive Airbnb management that maximizes your earnings with style and comfort.</p>
-      <p className="font-['Inter_Display:Regular',sans-serif] leading-[26px] relative shrink-0 text-[18px] whitespace-nowrap">Make your living experience even more memorable.</p>
+      <p className="font-['Inter_Display:Regular',sans-serif] leading-[26px] relative shrink-0 text-[18px] whitespace-nowrap">Make your living experience even more memorable</p>
     </div>
   );
 }
