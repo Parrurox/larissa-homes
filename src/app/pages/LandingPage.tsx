@@ -4,9 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Footer } from '../components/Footer';
 import { SECTION_IDS, SCROLL_ANCHOR_CLASS } from '../constants/sections';
+import { sendContactInquiry } from '../../lib/contactApi';
 
 import imgDubaiBackground from "@/assets/images/backgrounds/dubai-desktop-hd.webp";
 import imgContactBackground from "@/assets/images/backgrounds/contact-section.webp";
+import imgUnion from "@/assets/Union.svg";
 import NavLogo from "../../imports/Frame1171274724";
 import imgDubaiSkyline from "@/assets/images/dubai-skyline-waterfront.webp";
 import imgService1 from "@/assets/images/service-advisory.webp";
@@ -189,6 +191,37 @@ export default function LandingPage() {
   const isHomePage = location.pathname === '/';
   const isContactPage = location.pathname === '/contact';
 
+  // Contact form state
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+  const [contactStatus, setContactStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [contactError, setContactError] = useState('');
+
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactStatus('sending');
+    setContactError('');
+
+    const result = await sendContactInquiry(contactForm);
+
+    if (result.success) {
+      setContactStatus('success');
+      setContactForm({ name: '', email: '', phone: '', message: '' });
+    } else {
+      setContactStatus('error');
+      setContactError(result.error || 'Something went wrong');
+    }
+  };
+
   const scrollToSection = React.useCallback((id: string) => {
     if (id === SECTION_IDS.investmentsTop) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -231,7 +264,7 @@ export default function LandingPage() {
       
       {/* Hero Section */}
       {isHomePage ? (
-        <section className="relative w-full h-[800px] lg:h-[947px] flex flex-col items-center">
+        <section className="relative w-full h-screen flex flex-col items-center">
           <div className="absolute inset-0 z-0">
             <img src={imgDubaiBackground} className="w-full h-full object-cover" alt="Dubai Background" />
             <div className="absolute inset-0 bg-black/20" />
@@ -243,16 +276,14 @@ export default function LandingPage() {
 
           {/* Hero Content */}
           <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 w-full max-w-[1200px] pb-10 md:pb-20">
-            <h1 className="text-4xl md:text-6xl lg:text-[72px] font-normal text-white leading-[1.15] tracking-tight mb-8 whitespace-normal max-w-4xl">
-              Find the perfect rental<br className="hidden md:block" />
-              that&nbsp;&nbsp;&nbsp;feels&nbsp;&nbsp;like&nbsp;&nbsp;home<br className="hidden md:block" />
-              with style and comfort
-            </h1>
+            <div className="flex items-center justify-center">
+              <img src={imgUnion} className="w-full max-w-[719px] h-auto" alt="Find the perfect rental" />
+            </div>
 
           </div>
         </section>
       ) : isContactPage ? (
-        <section id={SECTION_IDS.contact} className={`relative w-full min-h-[1000px] flex flex-col items-center ${SCROLL_ANCHOR_CLASS}`}>
+        <section id={SECTION_IDS.contact} className={`relative w-full min-h-screen flex flex-col items-center ${SCROLL_ANCHOR_CLASS}`}>
           <div className="absolute inset-0 z-0">
             <img src={imgContactBackground} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />
             <div className="absolute inset-0 bg-black/20" />
@@ -267,37 +298,76 @@ export default function LandingPage() {
             <h1 className="text-[40px] md:text-5xl lg:text-[64px] font-semibold text-white tracking-[-1.6px] leading-[1.1] md:leading-[80px] text-center mb-[38px] w-full">
               Get In Touch with Us
             </h1>
-            
+
             <div className="backdrop-blur-[12px] bg-[#737373]/55 rounded-[24px] w-full p-8 md:p-12 lg:p-[50px] flex flex-col items-center gap-[40px]">
-              <div className="w-full flex flex-col gap-[34px]">
+              <form onSubmit={handleContactSubmit} className="w-full flex flex-col gap-[34px]">
                 <div className="flex flex-col gap-2 w-full">
                   <label className="text-[16px] text-white font-normal leading-[1.4]">Full Name</label>
-                  <input type="text" className="h-[56px] w-full bg-transparent border border-white rounded-[12px] px-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all" />
+                  <input
+                    type="text"
+                    name="name"
+                    value={contactForm.name}
+                    onChange={handleContactChange}
+                    required
+                    className="h-[56px] w-full bg-transparent border border-white rounded-[12px] px-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                  />
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <label className="text-[16px] text-white font-normal leading-[1.4]">Email</label>
-                  <input type="email" className="h-[56px] w-full bg-transparent border border-white rounded-[12px] px-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={contactForm.email}
+                    onChange={handleContactChange}
+                    required
+                    className="h-[56px] w-full bg-transparent border border-white rounded-[12px] px-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                  />
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <label className="text-[16px] text-white font-normal leading-[1.4]">Contact Number</label>
-                  <input type="tel" className="h-[56px] w-full bg-transparent border border-white rounded-[12px] px-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={contactForm.phone}
+                    onChange={handleContactChange}
+                    required
+                    className="h-[56px] w-full bg-transparent border border-white rounded-[12px] px-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                  />
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <label className="text-[16px] text-white font-normal leading-[1.4]">Message</label>
-                  <textarea className="h-[126px] w-full bg-transparent border border-white rounded-[12px] p-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none" />
+                  <textarea
+                    name="message"
+                    value={contactForm.message}
+                    onChange={handleContactChange}
+                    required
+                    className="h-[126px] w-full bg-transparent border border-white rounded-[12px] p-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none"
+                  />
                 </div>
-              </div>
-              
-              <button type="button" className="bg-white text-[#12161D] h-[38px] px-[18px] rounded-[25px] font-semibold text-[16px] flex items-center justify-center hover:bg-white/90 transition-colors">
-                Get In Touch
-              </button>
+
+                {contactStatus === 'success' && (
+                  <p className="text-white text-center font-medium">Thank you! Your message has been sent.</p>
+                )}
+
+                {contactStatus === 'error' && (
+                  <p className="text-red-300 text-center font-medium">{contactError}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={contactStatus === 'sending'}
+                  className="bg-white text-[#12161D] h-[38px] px-[18px] rounded-[25px] font-semibold text-[16px] flex items-center justify-center hover:bg-white/90 transition-colors disabled:opacity-50"
+                >
+                  {contactStatus === 'sending' ? 'Sending...' : 'Get In Touch'}
+                </button>
+              </form>
             </div>
           </div>
         </section>
       ) : (
         <section
           id={SECTION_IDS.investmentsTop}
-          className="relative w-full h-[600px] lg:h-[800px] overflow-hidden flex flex-col"
+          className="relative w-full h-screen overflow-hidden flex flex-col"
         >
           <div className="absolute inset-0 z-0">
             <img src={imgDubaiSkyline} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />

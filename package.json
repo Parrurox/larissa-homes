@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
+    "resend": "^3.0.0",
     "@emotion/styled": "11.14.1",
     "@mui/icons-material": "7.3.5",
     "@mui/material": "7.3.5",
@@ -67,6 +68,8 @@
     "vaul": "1.1.2"
   },
   "devDependencies": {
+    "@netlify/functions": "^2.0.0",
+    "@types/node": "^20.0.0",
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
     "sharp": "^0.34.2",
