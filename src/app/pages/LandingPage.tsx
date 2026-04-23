@@ -9,6 +9,7 @@ import { sendContactInquiry } from '../../lib/contactApi';
 import imgDubaiBackground from "@/assets/images/backgrounds/dubai-desktop-hd.webp";
 import imgContactBackground from "@/assets/images/backgrounds/contact-section.webp";
 import imgUnion from "@/assets/Union.svg";
+import imgInvestmentsHeroText from "@/assets/text.svg";
 import NavLogo from "../../imports/Frame1171274724";
 import imgDubaiSkyline from "@/assets/images/dubai-skyline-waterfront.webp";
 import imgService1 from "@/assets/images/service-advisory.webp";
@@ -277,7 +278,11 @@ export default function LandingPage() {
           {/* Hero Content */}
           <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 w-full max-w-[1200px] pb-10 md:pb-20">
             <div className="flex items-center justify-center">
-              <img src={imgUnion} className="w-full max-w-[719px] h-auto" alt="Find the perfect rental" />
+              <img
+                src={imgUnion}
+                className="w-[92%] max-w-[560px] h-auto md:w-full md:max-w-[719px]"
+                alt="Find the perfect rental"
+              />
             </div>
 
           </div>
@@ -372,9 +377,13 @@ export default function LandingPage() {
           <div className="absolute inset-0 z-0">
             <img src={imgDubaiSkyline} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />
             <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center px-6">
-              <h1 className="text-[32px] md:text-5xl lg:text-[64px] font-medium text-white tracking-tight leading-tight text-center max-w-[900px] mt-16">
-                Airbnb management that maximizes your earnings with style and comfort
-              </h1>
+              <div className="flex items-center justify-center">
+                <img
+                  src={imgInvestmentsHeroText}
+                  className="w-[92%] max-w-[560px] h-auto md:w-full md:max-w-[1011px]"
+                  alt="Airbnb management that maximizes your earnings with style and comfort"
+                />
+              </div>
             </div>
           </div>
           
