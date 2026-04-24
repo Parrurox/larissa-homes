@@ -215,7 +215,6 @@ export default function LandingPage() {
                 alt="Find the perfect rental"
               />
             </div>
-
           </div>
         </section>
       ) : isContactPage ? (

@@ -68,10 +68,10 @@ function Frame1() {
 
 export default function Navbar() {
   return (
-    <div className="content-stretch flex items-start justify-between pb-[12px] pt-[20px] px-[20px] relative size-full" data-name="Navbar">
+    <div className="content-stretch flex items-start justify-between pb-[12px] pt-[20px] px-[20px] relative w-full" data-name="Navbar">
       <Frame2 />
       <Frame1 />
-      <Link to="/" className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[100px] top-[calc(50%-6px)]" data-name="image 44">
+      <Link to="/" className="-translate-x-1/2 absolute left-1/2 size-[100px] top-[20px]" data-name="image 44">
         <img alt="Larisa Homes Logo" className="absolute inset-0 max-w-none object-cover size-full" src={imgImage44} />
       </Link>
     </div>
