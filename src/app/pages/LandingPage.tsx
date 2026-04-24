@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Plus, Minus, Star, Menu, X } from 'lucide-react';
+import { Plus, Minus, Star } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Footer } from '../components/Footer';
+import Navbar from "../../imports/Navbar";
 import { SECTION_IDS, SCROLL_ANCHOR_CLASS } from '../constants/sections';
 import { sendContactInquiry } from '../../lib/contactApi';
 
@@ -10,7 +11,6 @@ import imgDubaiBackground from "@/assets/images/backgrounds/dubai-desktop-hd.web
 import imgContactBackground from "@/assets/images/backgrounds/contact-section.webp";
 import imgUnion from "@/assets/Union.svg";
 import imgInvestmentsHeroText from "@/assets/text.svg";
-import NavLogo from "../../imports/Frame1171274724";
 import imgDubaiSkyline from "@/assets/images/dubai-skyline-waterfront.webp";
 import imgService1 from "@/assets/images/service-advisory.webp";
 import imgService3 from "@/assets/images/team-collaboration.webp";
@@ -114,76 +114,6 @@ function PropertyImageCarousel({ images, alt }: { images: string[], alt: string 
   );
 }
 
-function NavBar({ isHomePage, onBookYourStay }: { isHomePage: boolean; onBookYourStay: () => void }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const containerClasses = isHomePage 
-    ? "w-full px-4 md:px-[24px] py-5 flex justify-between items-center z-50 relative"
-    : "w-full px-4 md:px-[24px] py-5 flex justify-between items-center z-50 absolute top-0 left-0 right-0";
-
-  return (
-    <>
-      <nav className={containerClasses}>
-        {/* Left side links */}
-        <div className="hidden md:flex flex-col items-start gap-[16px] text-[16px] text-white font-normal leading-[16px] w-[144px] z-10 whitespace-nowrap shrink-0">
-          <Link to="/" className="hover:opacity-80 transition-opacity shrink-0">Home</Link>
-          <Link to="/investments" className="hover:opacity-80 transition-opacity shrink-0">Investments</Link>
-          <Link to="/contact" className="hover:opacity-80 transition-opacity shrink-0">Contact Us</Link>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden z-10 flex items-center flex-1">
-          <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white hover:opacity-80 transition-opacity"
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-
-        {/* Center Logo */}
-        <Link to="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center scale-[0.5] md:scale-75 origin-top mt-2 md:mt-2">
-          <NavLogo />
-        </Link>
-
-        {/* Right side button */}
-        <div className="z-10 flex items-center justify-end flex-1 md:w-[144px] md:flex-none">
-          <button
-            type="button"
-            onClick={onBookYourStay}
-            className="flex bg-white text-[#12161D] h-[34px] md:h-[38px] px-3 md:px-[18px] rounded-[25px] font-semibold text-[11px] sm:text-[13px] md:text-[16px] items-center justify-center hover:bg-white/90 transition-colors shrink-0 whitespace-nowrap tracking-tighter md:tracking-normal"
-          >
-            Book Your Stay
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 bg-[#12161D] z-40 transition-transform duration-300 ease-in-out flex flex-col items-center justify-center gap-8 ${
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden`}
-      >
-        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl text-white font-medium hover:opacity-80 transition-opacity">Home</Link>
-        <Link to="/investments" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl text-white font-medium hover:opacity-80 transition-opacity">Investments</Link>
-        <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl text-white font-medium hover:opacity-80 transition-opacity">Contact Us</Link>
-        
-        <button
-          type="button"
-          onClick={() => {
-            setIsMobileMenuOpen(false);
-            onBookYourStay();
-          }}
-          className="bg-white text-[#12161D] h-[48px] px-8 rounded-[25px] font-semibold text-[16px] flex items-center justify-center hover:bg-white/90 transition-colors mt-4"
-        >
-          Book Your Stay
-        </button>
-      </div>
-    </>
-  );
-}
-
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -245,9 +175,10 @@ export default function LandingPage() {
     requestAnimationFrame(() => scrollToSection(hash));
   }, [location.pathname, location.hash, scrollToSection]);
 
-  /** SPA keeps scroll position across routes; reset to top on /investments when there is no hash anchor. */
+  /** SPA keeps scroll position across routes; reset to top on /investments or legal pages when there is no hash anchor. */
   React.useEffect(() => {
-    if (location.pathname !== '/investments') return;
+    const legalPages = ['/privacy-policy', '/terms-of-service', '/cookie-policy'];
+    if (location.pathname !== '/investments' && !legalPages.includes(location.pathname)) return;
     if (location.hash) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname, location.hash]);
@@ -273,7 +204,7 @@ export default function LandingPage() {
           </div>
           
           {/* Navbar */}
-          <NavBar isHomePage={isHomePage} onBookYourStay={handleBookYourStay} />
+          <Navbar />
 
           {/* Hero Content */}
           <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 w-full max-w-[1200px] pb-10 md:pb-20">
@@ -296,7 +227,7 @@ export default function LandingPage() {
           
           {/* Navbar Overlay */}
           <div className="relative z-10 w-full">
-            <NavBar isHomePage={false} onBookYourStay={handleBookYourStay} />
+            <Navbar />
           </div>
 
           <div className="relative z-10 flex flex-col items-center w-full max-w-[852px] px-6 mt-[120px] md:mt-[220px] mb-20 md:mb-32">
@@ -389,7 +320,7 @@ export default function LandingPage() {
           
           {/* Navbar Overlay */}
           <div className="relative z-10 w-full">
-            <NavBar isHomePage={isHomePage} onBookYourStay={handleBookYourStay} />
+            <Navbar />
           </div>
         </section>
       )}

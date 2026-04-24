@@ -1,5 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import LandingPage from "./pages/LandingPage";
+import CookiePolicy from "./pages/CookiePolicy";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 export const router = createBrowserRouter([
   {
@@ -21,5 +24,17 @@ export const router = createBrowserRouter([
   {
     path: "/contact",
     Component: LandingPage,
+  },
+  {
+    path: "/cookie-policy",
+    Component: CookiePolicy,
+  },
+  {
+    path: "/privacy-policy",
+    Component: PrivacyPolicy,
+  },
+  {
+    path: "/terms-of-service",
+    Component: TermsOfService,
   },
 ]);

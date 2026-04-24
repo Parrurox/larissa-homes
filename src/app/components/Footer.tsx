@@ -62,32 +62,37 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10">
             <Link
-              id={SECTION_IDS.termsOfService}
-              to={`/#${SECTION_IDS.termsOfService}`}
-              className={`font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap ${SCROLL_ANCHOR_CLASS}`}
+              to="/terms-of-service"
+              onClick={() => {
+                if (location.pathname === '/terms-of-service') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap"
             >
               Terms of Service
             </Link>
             <Link
-              id={SECTION_IDS.privacyPolicy}
-              to={`/#${SECTION_IDS.privacyPolicy}`}
-              className={`font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap ${SCROLL_ANCHOR_CLASS}`}
+              to="/privacy-policy"
+              onClick={() => {
+                if (location.pathname === '/privacy-policy') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap"
             >
-              Policy service
+              Privacy Policy
             </Link>
             <Link
-              id={SECTION_IDS.cookiePolicy}
-              to={`/#${SECTION_IDS.cookiePolicy}`}
-              className={`font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap ${SCROLL_ANCHOR_CLASS}`}
+              to="/cookie-policy"
+              onClick={() => {
+                if (location.pathname === '/cookie-policy') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap"
             >
               Cookie Policy
-            </Link>
-            <Link
-              id={SECTION_IDS.partners}
-              to={`/#${SECTION_IDS.partners}`}
-              className={`font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px] hover:text-[#12161d] transition-colors whitespace-nowrap ${SCROLL_ANCHOR_CLASS}`}
-            >
-              Partners
             </Link>
           </div>
         </div>
