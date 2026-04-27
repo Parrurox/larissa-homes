@@ -21,39 +21,40 @@ interface GeneralInquiry {
   message: string;
 }
 
-export default async function handler(req: any) {
-  if (req.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+export default async function handler(req: Request) {
+  if (req.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405 });
   }
 
   try {
-    const { name, email, phone, message }: GeneralInquiry = JSON.parse(req.body);
+    const body = await req.json();
+    const { name, email, phone, message }: GeneralInquiry = body;
 
     // Validation
     if (!name || !email || !phone || !message) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'All fields are required' }),
-      };
+      return new Response(JSON.stringify({ error: 'All fields are required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     if (!validateEmail(email)) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid email format' }),
-      };
+      return new Response(JSON.stringify({ error: 'Invalid email format' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const toEmail = process.env.VITE_RESEND_TO_EMAIL;
     if (!toEmail) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Email service not configured' }),
-      };
+      return new Response(JSON.stringify({ error: 'Email service not configured' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const fromEmail =
-      process.env.VITE_RESEND_FROM_EMAIL || 'Larissa Homes <onboarding@resend.dev>';
+      process.env.VITE_RESEND_FROM_EMAIL || 'Larisa Homes <onboarding@resend.dev>';
 
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -76,17 +77,20 @@ export default async function handler(req: any) {
     await resend.emails.send({
       from: fromEmail,
       to: toEmail,
-      replyTo: email,
+      reply_to: process.env.VITE_RESEND_REPLY_TO_EMAIL || email,
       subject: `Contact Inquiry from ${name}`,
       html: htmlContent,
     });
 
-    return { statusCode: 200, body: JSON.stringify({ success: true }) };
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Error sending email:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to send email' }),
-    };
+    return new Response(JSON.stringify({ error: 'Failed to send email' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
