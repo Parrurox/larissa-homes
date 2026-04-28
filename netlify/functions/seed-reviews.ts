@@ -27,6 +27,7 @@ export default async function handler(req: Request) {
       await store.delete(blob.key);
     }
     
+    console.log(`Seeding ${reviewsToSeed.length} reviews`);
     // Set each review individually
     for (const review of reviewsToSeed) {
       await store.setJSON(`review_${review.id}`, review);

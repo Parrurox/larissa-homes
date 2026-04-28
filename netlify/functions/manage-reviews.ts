@@ -40,6 +40,7 @@ export default async function handler(req: Request) {
       }
 
       const newReview: Review = { id: generateId(), name, text };
+      console.log(`POST review: ${newReview.id}`);
       await store.setJSON(`review_${newReview.id}`, newReview);
 
       return new Response(JSON.stringify(newReview), {
@@ -68,6 +69,7 @@ export default async function handler(req: Request) {
       }
 
       const updatedReview: Review = { id, name, text };
+      console.log(`PUT review: ${id}`);
       await store.setJSON(`review_${id}`, updatedReview);
 
       return new Response(JSON.stringify(updatedReview), {
@@ -87,6 +89,7 @@ export default async function handler(req: Request) {
         );
       }
 
+      console.log(`DELETE review: ${id}`);
       await store.delete(`review_${id}`);
 
       return new Response(JSON.stringify({ success: true }), {
