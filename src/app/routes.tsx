@@ -3,6 +3,7 @@ import LandingPage from "./pages/LandingPage";
 import CookiePolicy from "./pages/CookiePolicy";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import AdminPage from "./pages/AdminPage";
 
 export const router = createBrowserRouter([
   {
@@ -36,5 +37,9 @@ export const router = createBrowserRouter([
   {
     path: "/terms-of-service",
     Component: TermsOfService,
+  },
+  {
+    path: "/admin",
+    Component: AdminPage,
   },
 ]);
