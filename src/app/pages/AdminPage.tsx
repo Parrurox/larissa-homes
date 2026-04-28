@@ -296,7 +296,9 @@ function AdminPage() {
         {/* Add form */}
         <div className="flex gap-4 mb-8">
           <Button
-            onClick={fetchReviews}
+            onClick={() => {
+              window.location.reload();
+            }}
             variant="outline"
             className="flex items-center gap-2"
           >
@@ -353,6 +355,7 @@ function AdminPage() {
               onChange={(e) => setSeedJson(e.target.value)}
               placeholder='[{"name": "...", "text": "..."}]'
               rows={10}
+              className="max-h-[300px] overflow-y-auto"
             />
             <DialogFooter>
               <Button
@@ -367,10 +370,12 @@ function AdminPage() {
                       body: seedJson,
                     });
                     if (res.ok) {
-                      showStatus("success", "Reviews seeded successfully");
+                      showStatus("success", "Reviews seeded successfully. Refreshing page...");
                       await fetchReviews();
                       setIsSeedOpen(false);
                       setSeedJson("");
+                      // Refresh the page
+                      window.location.reload();
                     } else {
                       showStatus("error", "Failed to seed reviews");
                     }

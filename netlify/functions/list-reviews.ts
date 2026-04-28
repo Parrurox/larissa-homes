@@ -14,17 +14,25 @@ export default async function handler(req: Request) {
 
   try {
     const store = getStore("reviews");
-    const raw = await store.get("data");
-    const reviews: Review[] = raw ? JSON.parse(raw) : DEFAULT_REVIEWS;
+    const { blobs } = await store.list({ prefix: "review_" });
+    
+    const reviews: Review[] = [];
+    for (const blob of blobs) {
+      const raw = await store.get(blob.key);
+      if (raw) {
+        reviews.push(JSON.parse(raw));
+      }
+    }
 
     return new Response(JSON.stringify(reviews), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=60, s-maxage=300",
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
       },
     });
-  } catch {
+  } catch (error) {
+    console.error("List reviews error:", error);
     return new Response(JSON.stringify(DEFAULT_REVIEWS), {
       status: 200,
       headers: { "Content-Type": "application/json" },

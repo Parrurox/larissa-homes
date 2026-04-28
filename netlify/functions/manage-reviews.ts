@@ -27,8 +27,6 @@ export default async function handler(req: Request) {
 
   try {
     const store = getStore("reviews");
-    const raw = await store.get("data");
-    let reviews: Review[] = raw ? JSON.parse(raw) : [];
 
     if (req.method === "POST") {
       const body = await req.json();
@@ -42,8 +40,7 @@ export default async function handler(req: Request) {
       }
 
       const newReview: Review = { id: generateId(), name, text };
-      reviews.push(newReview);
-      await store.setJSON("data", reviews);
+      await store.setJSON(`review_${newReview.id}`, newReview);
 
       return new Response(JSON.stringify(newReview), {
         status: 201,
@@ -62,18 +59,18 @@ export default async function handler(req: Request) {
         );
       }
 
-      const index = reviews.findIndex((r) => r.id === id);
-      if (index === -1) {
+      const raw = await store.get(`review_${id}`);
+      if (!raw) {
         return new Response(
           JSON.stringify({ error: "Review not found" }),
           { status: 404, headers: { "Content-Type": "application/json" } }
         );
       }
 
-      reviews[index] = { id, name, text };
-      await store.setJSON("data", reviews);
+      const updatedReview: Review = { id, name, text };
+      await store.setJSON(`review_${id}`, updatedReview);
 
-      return new Response(JSON.stringify(reviews[index]), {
+      return new Response(JSON.stringify(updatedReview), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
@@ -90,16 +87,7 @@ export default async function handler(req: Request) {
         );
       }
 
-      const index = reviews.findIndex((r) => r.id === id);
-      if (index === -1) {
-        return new Response(
-          JSON.stringify({ error: "Review not found" }),
-          { status: 404, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      reviews.splice(index, 1);
-      await store.setJSON("data", reviews);
+      await store.delete(`review_${id}`);
 
       return new Response(JSON.stringify({ success: true }), {
         status: 200,

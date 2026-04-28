@@ -8,25 +8,34 @@ export default async function handler(req: Request) {
 
   try {
     const store = getStore("reviews");
-    let reviews = DEFAULT_REVIEWS;
+    let reviewsToSeed = DEFAULT_REVIEWS;
     
     if (req.headers.get("Content-Type") === "application/json") {
       try {
         const body = await req.json();
         if (Array.isArray(body)) {
-          reviews = body;
+          reviewsToSeed = body;
         }
       } catch (e) {
         // ignore invalid json if provided
       }
     }
     
-    await store.setJSON("data", reviews);
+    // Clear existing reviews first
+    const { blobs } = await store.list({ prefix: "review_" });
+    for (const blob of blobs) {
+      await store.delete(blob.key);
+    }
+    
+    // Set each review individually
+    for (const review of reviewsToSeed) {
+      await store.setJSON(`review_${review.id}`, review);
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: `Seeded ${reviews.length} reviews`,
+        message: `Seeded ${reviewsToSeed.length} reviews`,
       }),
       {
         status: 200,
