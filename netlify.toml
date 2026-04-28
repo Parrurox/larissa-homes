@@ -18,3 +18,11 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build.processing.secrets_scanning]
+  enabled = true
+  omit_paths = [
+    "src/app/pages/CookiePolicy.tsx",
+    "src/app/pages/PrivacyPolicy.tsx",
+    "src/app/pages/TermsOfService.tsx"
+  ]
