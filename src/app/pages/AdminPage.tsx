@@ -308,7 +308,7 @@ function AdminPage() {
             onClick={() => setIsSeedOpen(true)}
             className="bg-purple-600 hover:bg-purple-700 text-white"
           >
-            Seed Reviews
+            Bulk Add Reviews
           </Button>
         </div>
 
