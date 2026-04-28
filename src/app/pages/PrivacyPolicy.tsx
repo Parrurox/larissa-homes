@@ -30,7 +30,7 @@ export default function PrivacyPolicy() {
       <p>We may update this Privacy Policy from time to time. Updates will be posted on this page.</p>
 
       <h2>9. Contact Us</h2>
-      <p>If you have questions about this policy, email us at <a href="mailto:larisaholidayhome@gmail.com">larisaholidayhome@gmail.com</a>.</p>
+      <p>If you have questions about this policy, email us at <a href={`mailto:${import.meta.env.VITE_RESEND_TO_EMAIL}`}>{import.meta.env.VITE_RESEND_TO_EMAIL}</a>.</p>
     </LegalPageLayout>
   );
 }

@@ -24,7 +24,7 @@ export default function CookiePolicy() {
       <p>You can disable cookies through your browser settings, but some website features may not function correctly.</p>
 
       <h2>6. Contact Us</h2>
-      <p>For more information, contact us at <a href="mailto:larisaholidayhome@gmail.com">larisaholidayhome@gmail.com</a>.</p>
+      <p>For more information, contact us at <a href={`mailto:${import.meta.env.VITE_RESEND_TO_EMAIL}`}>{import.meta.env.VITE_RESEND_TO_EMAIL}</a>.</p>
     </LegalPageLayout>
   );
 }

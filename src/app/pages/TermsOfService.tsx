@@ -47,7 +47,7 @@ export default function TermsOfService() {
       <p>We reserve the right to update these Terms at any time. Continued use of the Site indicates acceptance of the revised Terms.</p>
 
       <h2>12. Contact</h2>
-      <p>For questions, contact us at <a href="mailto:larisaholidayhome@gmail.com">larisaholidayhome@gmail.com</a>.</p>
+      <p>For questions, contact us at <a href={`mailto:${import.meta.env.VITE_RESEND_TO_EMAIL}`}>{import.meta.env.VITE_RESEND_TO_EMAIL}</a>.</p>
       <p>Website: <a href="https://www.larisaholidayhomes.com" target="_blank" rel="noopener noreferrer">www.larisaholidayhomes.com</a></p>
     </LegalPageLayout>
   );
