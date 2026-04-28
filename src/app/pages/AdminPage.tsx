@@ -74,7 +74,7 @@ function AdminPage() {
 
   const fetchReviews = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE}/list-reviews`);
+      const res = await fetch(`${API_BASE}/list-reviews?t=${Date.now()}`, { cache: 'no-store' });
       if (res.ok) {
         const data: Review[] = await res.json();
         setReviews(data);
@@ -341,11 +341,11 @@ function AdminPage() {
           />
         </form>
 
-        {/* Seed Dialog */}
+        {/* bulk add reviews Dialog */}
         <Dialog open={isSeedOpen} onOpenChange={setIsSeedOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Seed Reviews</DialogTitle>
+              <DialogTitle>Bulk Add Reviews</DialogTitle>
               <DialogDescription>
                 Paste the JSON array of reviews to seed:
               </DialogDescription>
