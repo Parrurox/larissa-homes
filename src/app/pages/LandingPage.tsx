@@ -225,7 +225,7 @@ export default function LandingPage() {
           </div>
           
           {/* Navbar Overlay */}
-          <div className="relative z-10 w-full">
+          <div className="relative z-[9997] w-full">
             <Navbar />
           </div>
 
@@ -362,13 +362,13 @@ export default function LandingPage() {
                           </div>
                         </div>
                         <h3 className="text-3xl lg:text-5xl text-[#12161D] font-medium leading-tight">Exclusive 2BR Luxury Retreat</h3>
-                        <div className="flex items-center gap-3 text-[#61656E] text-base lg:text-lg mt-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-[#61656E] text-base lg:text-lg mt-1">
                           <span>Up to 4 guests</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>2 Bedrooms</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>2 Beds</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>2 Baths</span>
                         </div>
                       </div>
@@ -409,13 +409,13 @@ export default function LandingPage() {
                           </div>
                         </div>
                         <h3 className="text-3xl lg:text-5xl text-[#12161D] font-medium leading-tight">Oriental Zen Suite</h3>
-                        <div className="flex items-center gap-3 text-[#61656E] text-base lg:text-lg mt-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-[#61656E] text-base lg:text-lg mt-1">
                           <span>Up to 2 guests</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>1 Bedroom</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>1 Bed</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>1 Bath</span>
                         </div>
                       </div>
@@ -455,13 +455,13 @@ export default function LandingPage() {
                           </div>
                         </div>
                         <h3 className="text-3xl lg:text-5xl text-[#12161D] font-medium leading-tight">Unique JP Apartment</h3>
-                        <div className="flex items-center gap-3 text-[#61656E] text-base lg:text-lg mt-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-[#61656E] text-base lg:text-lg mt-1">
                           <span>Up to 2 guests</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>1 Bedroom</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>1 Bed</span>
-                          <span className="w-1.5 h-1.5 bg-[#D1D3D6] rounded-full" />
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
                           <span>1 Bath</span>
                         </div>
                       </div>
@@ -662,10 +662,10 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.1] md:leading-tight text-[#12161D] mb-4 lg:mb-6">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-[#61656E] leading-relaxed">
+            {/* <p className="text-lg text-[#61656E] leading-relaxed">
               If there are questions you want to ask.<br />
               We will answer all your questions.
-            </p>
+            </p> */}
           </div>
           <div className="flex-1 flex flex-col gap-5">
             {(isHomePage ? homeFaqs : investmentFaqs).map((faq, index) => (

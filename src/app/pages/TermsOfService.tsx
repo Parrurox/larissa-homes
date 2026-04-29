@@ -41,7 +41,7 @@ export default function TermsOfService() {
       <p>Either party may terminate the service agreement as per the terms specified in the individual management agreement.</p>
 
       <h2>10. Governing Law</h2>
-      <p>These Terms of Service are governed by the laws of [Your Jurisdiction].</p>
+      <p>The laws of Dubai, United Arab Emirates, govern these Terms. Any disputes shall be subject to the exclusive jurisdiction of the courts of Dubai.</p>
 
       <h2>11. Changes to Terms</h2>
       <p>We reserve the right to update these Terms at any time. Continued use of the Site indicates acceptance of the revised Terms.</p>
