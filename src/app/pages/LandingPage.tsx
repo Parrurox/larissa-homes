@@ -32,6 +32,17 @@ import imgOnboarding from "@/assets/images/onboarding.webp";
 import imgManagement from "@/assets/images/management-services.webp";
 import imgEarnings from "@/assets/images/earnings-illustration.webp";
 import imgGuestRelations from "@/assets/images/guest-relations.webp";
+import imgJvc1 from "@/assets/images/jumerah-village-circle-1.jpg";
+import imgJvc2 from "@/assets/images/jumerah-village-circle-2.jpg";
+import imgJvc3 from "@/assets/images/jumerah-village-circle-3.jpg";
+import imgJvc4 from "@/assets/images/jumerah-village-circle-4.jpg";
+import imgJvc5 from "@/assets/images/jumerah-village-circle-5.jpg";
+import imgJvc6 from "@/assets/images/jumerah-village-circle-6.jpg";
+import imgBayBusiness1 from "@/assets/images/bay-business-1.jpg";
+import imgBayBusiness2 from "@/assets/images/bay-business-2.jpg";
+import imgBayBusiness3 from "@/assets/images/bay-business-3.jpg";
+import imgBayBusiness4 from "@/assets/images/bay-business-4.jpg";
+import imgBayBusiness5 from "@/assets/images/bay-business-5.jpg";
 
 const homeFaqs = [
   {
@@ -477,6 +488,126 @@ export default function LandingPage() {
                         >
                           Book Now
                         </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Property 4 — Binghatti House (reserved) */}
+                <div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div className="relative h-[250px] sm:h-[400px] lg:h-[500px] w-full rounded-[24px] overflow-hidden lg:order-last">
+                      <PropertyImageCarousel
+                        images={[imgJvc1, imgJvc2, imgJvc3, imgJvc4, imgJvc5, imgJvc6]}
+                        alt="Modern 1BR Urban Escape at Binghatti House"
+                      />
+                      <div
+                        className="pointer-events-none absolute left-4 top-4 z-30 max-w-[min(100%-2rem,20rem)] rounded-lg bg-[#12161D]/92 px-3 py-2 text-left shadow-lg md:left-5 md:top-5 md:px-4 md:py-2.5"
+                        role="status"
+                        aria-label="Currently reserved for long term"
+                      >
+                        <span className="text-[11px] font-semibold uppercase leading-snug tracking-wider text-white md:text-xs">
+                          Currently Reserved (Long Term)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-3">
+                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">
+                            Jumeirah Village Circle
+                          </span>
+                        </div>
+                        <h3 className="text-3xl lg:text-5xl text-[#12161D] font-medium leading-tight">
+                          Modern 1BR Urban Escape at Binghatti House
+                        </h3>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-[#61656E] text-base lg:text-lg mt-1">
+                          <span>Up to 2 guests</span>
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
+                          <span>1 Bedroom</span>
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
+                          <span>1 Bed</span>
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
+                          <span>1 Bath</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-3 text-[17px] lg:text-[18px] text-[#61656E] leading-relaxed">
+                        <p>
+                          Experience elevated living in this stylish 1-bedroom apartment at Binghatti House, nestled in the heart of JVC - Dubai&apos;s vibrant and well-connected community.
+                        </p>
+                        <p>
+                          Designed for modern comfort and effortless city living, this contemporary retreat offers the perfect balance of tranquility and accessibility. Enjoy premium amenities including a rooftop pool, state-of-the-art gym, landscaped spaces, and 24/7 security, all within a striking high-rise known for its innovative design.
+                        </p>
+                      </div>
+                      <div className="pt-2">
+                        <button
+                          type="button"
+                          disabled
+                          className="inline-block bg-[#ECEEF0] text-[#95999F] px-8 py-4 rounded-full font-medium text-lg cursor-not-allowed w-fit pointer-events-none select-none"
+                          aria-disabled="true"
+                        >
+                          Reserved
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Property 5 — Binghatti Canal (reserved, long term) */}
+                <div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div className="relative h-[250px] sm:h-[400px] lg:h-[500px] w-full rounded-[24px] overflow-hidden">
+                      <PropertyImageCarousel
+                        images={[imgBayBusiness1, imgBayBusiness2, imgBayBusiness3, imgBayBusiness4, imgBayBusiness5]}
+                        alt="Stylish Canal-View 2BR Retreat at Binghatti Canal"
+                      />
+                      <div
+                        className="pointer-events-none absolute left-4 top-4 z-30 max-w-[min(100%-2rem,20rem)] rounded-lg bg-[#12161D]/92 px-3 py-2 text-left shadow-lg md:left-5 md:top-5 md:px-4 md:py-2.5"
+                        role="status"
+                        aria-label="Currently reserved for long term"
+                      >
+                        <span className="text-[11px] font-semibold uppercase leading-snug tracking-wider text-white md:text-xs">
+                          Currently Reserved (Long Term)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-3">
+                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">
+                            Business Bay
+                          </span>
+                        </div>
+                        <h3 className="text-3xl lg:text-5xl text-[#12161D] font-medium leading-tight">
+                          Stylish Canal-View 2BR Retreat at Binghatti Canal
+                        </h3>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-[#61656E] text-base lg:text-lg mt-1">
+                          <span>Up to 4 guests</span>
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
+                          <span>2 Bedrooms</span>
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
+                          <span>2 Beds</span>
+                          <span className="hidden sm:block w-1.5 h-1.5 bg-[#D1D3D6] rounded-full shrink-0" />
+                          <span>2 Baths</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-3 text-[17px] lg:text-[18px] text-[#61656E] leading-relaxed">
+                        <p>
+                          Experience waterfront living in this contemporary 2-bedroom apartment at Binghatti Canal, set in the heart of Business Bay along the iconic Dubai Water Canal.
+                        </p>
+                        <p>
+                          Designed for those who appreciate modern architecture and vibrant city energy, this residence offers a perfect blend of comfort, style, and connectivity. Wake up to stunning canal and skyline views, unwind in thoughtfully designed interiors with floor-to-ceiling windows, and enjoy premium amenities including a swimming pool, fully equipped gym, landscaped gardens, and leisure spaces.
+                        </p>
+                      </div>
+                      <div className="pt-2">
+                        <button
+                          type="button"
+                          disabled
+                          className="inline-block bg-[#ECEEF0] text-[#95999F] px-8 py-4 rounded-full font-medium text-lg cursor-not-allowed w-fit pointer-events-none select-none"
+                          aria-disabled="true"
+                        >
+                          Reserved
+                        </button>
                       </div>
                     </div>
                   </div>
