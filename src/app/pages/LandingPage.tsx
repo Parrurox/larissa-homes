@@ -186,10 +186,10 @@ export default function LandingPage() {
     requestAnimationFrame(() => scrollToSection(hash));
   }, [location.pathname, location.hash, scrollToSection]);
 
-  /** SPA keeps scroll position across routes; reset to top on /investments or legal pages when there is no hash anchor. */
+  /** SPA keeps scroll position across routes; reset to top on select routes when there is no hash anchor. */
   React.useEffect(() => {
-    const legalPages = ['/privacy-policy', '/terms-of-service', '/cookie-policy'];
-    if (location.pathname !== '/investments' && !legalPages.includes(location.pathname)) return;
+    const scrollTopRoutes = ['/investments', '/contact', '/privacy-policy', '/terms-of-service', '/cookie-policy'];
+    if (!scrollTopRoutes.includes(location.pathname)) return;
     if (location.hash) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname, location.hash]);
@@ -774,6 +774,11 @@ export default function LandingPage() {
 
               <Link
                 to="/contact"
+                onClick={() => {
+                  if (location.pathname === '/contact') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
                 className="bg-[#12161D] text-white px-8 py-4 rounded-[100px] font-medium text-[17px] hover:bg-[#12161D]/90 transition-colors shadow-sm w-fit inline-flex items-center justify-center"
               >
                 Contact Us
@@ -844,9 +849,17 @@ export default function LandingPage() {
                 Join Larisa Homes today and let our expert team transform your space into a high-performing luxury rental. Sit back, relax, and watch your earnings grow.
               </p>
               <div className="pt-4">
-                <button className="bg-white text-[#12161D] px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
-                  Book Your Stay
-                </button>
+                <Link
+                  to="/contact"
+                  onClick={() => {
+                    if (location.pathname === '/contact') {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
+                  className="bg-white text-[#12161D] px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+                >
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>

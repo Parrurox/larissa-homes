@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router';
-import imgImage44 from "@/assets/images/main-logo.webp";
+import larissaLaLogo from "@/assets/logos/LA.png";
 import { SECTION_IDS, SCROLL_ANCHOR_CLASS } from '../constants/sections';
 
 export function Footer() {
@@ -20,9 +20,9 @@ export function Footer() {
           <div className="flex flex-col shrink-0">
             <Link to="/" className="inline-block relative w-[100px] h-[100px]">
               <img 
-                alt="ZH Vacation Home Logo" 
-                className="w-full h-full object-cover" 
-                src={imgImage44} 
+                alt="Larisa Homes" 
+                className="w-full h-full object-contain object-center invert opacity-[0.72]" 
+                src={larissaLaLogo} 
               />
             </Link>
           </div>

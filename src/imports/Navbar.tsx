@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
-import imgImage44 from "@/assets/images/main-logo.webp";
+import larissaLogo from "@/assets/logos/larissa-logo.png";
 
-function NavLinks() {
+function DesktopNavLinks() {
   const location = useLocation();
+  const linkBase =
+    "hover:opacity-80 transition-opacity shrink-0 font-['Aileron:Regular',sans-serif] leading-[16px] not-italic text-white whitespace-nowrap";
+
   return (
-    <div className="content-stretch flex flex-col font-['Aileron:Regular',sans-serif] gap-2 sm:gap-[16px] items-start leading-[16px] not-italic relative shrink-0 text-[14px] sm:text-[16px] text-white w-[min(100%,104px)] sm:w-[144px] whitespace-nowrap" data-name="Link">
+    <div
+      className="content-stretch flex flex-col gap-2 sm:gap-[16px] items-start justify-center text-[14px] sm:text-[16px] min-w-0 z-20 md:pt-0.5"
+      data-name="Link"
+    >
       <Link
         to="/"
         onClick={() => {
@@ -13,7 +19,7 @@ function NavLinks() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }}
-        className="hover:opacity-80 transition-opacity shrink-0"
+        className={linkBase}
       >
         Home
       </Link>
@@ -24,7 +30,7 @@ function NavLinks() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }}
-        className="hover:opacity-80 transition-opacity shrink-0"
+        className={linkBase}
       >
         Investments
       </Link>
@@ -35,18 +41,10 @@ function NavLinks() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }}
-        className="hover:opacity-80 transition-opacity shrink-0"
+        className={linkBase}
       >
         Contact Us
       </Link>
-    </div>
-  );
-}
-
-function Frame2() {
-  return (
-    <div className="content-stretch flex flex-col items-start relative z-20 shrink-0 min-w-0">
-      <NavLinks />
     </div>
   );
 }
@@ -59,34 +57,47 @@ function Frame() {
   );
 }
 
-function Frame1() {
-  return (
-    <div className="content-stretch flex flex-col h-[41px] items-start relative z-20 shrink-0">
-      <Frame />
-    </div>
-  );
-}
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <div className="content-stretch flex items-start justify-between gap-2 pb-[12px] pt-[20px] px-3 sm:px-[20px] relative w-full" data-name="Navbar">
-              <div className="flex items-center gap-2 z-50">
-        <button 
-          className="sm:hidden p-2 text-white" 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? '✕' : '☰'}
-        </button>
+      <div
+        className="content-stretch flex items-center justify-between gap-2 pb-[12px] pt-[20px] px-3 sm:px-[20px] relative w-full sm:min-h-[52px]"
+        data-name="Navbar"
+      >
+        <div className="flex items-center gap-2 z-50 sm:hidden">
+          <button
+            type="button"
+            className="p-2 text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? '✕' : '☰'}
+          </button>
+          <Link
+            to="/"
+            className="flex h-10 max-h-10 w-auto max-w-[200px] items-center shrink-0"
+            data-name="larissa-logo-mobile"
+          >
+            <img alt="Larisa Holiday Homes" className="h-full w-auto max-w-full object-contain object-left" src={larissaLogo} />
+          </Link>
+        </div>
+
+      {/* Desktop: nav | logo | CTA — items-start so logo/button stay fixed; pad-left nav only so "Home" lines up with logo (centering the whole column pushed Home upward). */}
+      <div className="hidden sm:flex flex-1 items-start justify-between gap-4 min-w-0">
+        <div className="flex-1 flex justify-start min-w-0 sm:pt-[14px] md:pt-[18px]">
+          <DesktopNavLinks />
+        </div>
         <Link
           to="/"
-          className="sm:hidden size-[50px]"
-          data-name="image 44 mobile"
+          className="shrink-0 flex h-11 md:h-[52px] w-auto max-w-[min(40vw,340px)] items-center justify-center z-10"
+          data-name="larissa-logo-desktop"
         >
-          <img alt="Larisa Homes Logo" className="object-contain size-full" src={imgImage44} />
+          <img alt="Larisa Holiday Homes" className="h-full w-auto max-w-full object-contain object-center" src={larissaLogo} />
         </Link>
+        <div className="flex-1 flex justify-end items-center shrink-0 z-20">
+          <Frame />
+        </div>
       </div>
 
       {/* Mobile Animated Sidebar */}
@@ -106,19 +117,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Desktop Links */}
-      <div className="hidden sm:block absolute top-[20px] left-[20px] z-20">
-        <Frame2 />
+      <div className="sm:hidden shrink-0 z-20 ml-auto">
+        <Frame />
       </div>
-      
-      <Frame1 />
-      <Link
-        to="/"
-        className="hidden sm:block -translate-x-1/2 absolute left-1/2 top-[20px] z-10 size-[88px] md:size-[100px]"
-        data-name="image 44 desktop"
-      >
-        <img alt="Larisa Homes Logo" className="absolute inset-0 max-w-none object-cover size-full" src={imgImage44} />
-      </Link>
       </div>
 
       {/* Overlay */}
