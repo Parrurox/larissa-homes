@@ -9,7 +9,7 @@ function DesktopNavLinks() {
 
   return (
     <div
-      className="content-stretch flex flex-col gap-2 sm:gap-[16px] items-start justify-center text-[14px] sm:text-[16px] min-w-0 z-20 md:pt-0.5"
+      className="content-stretch flex flex-col gap-1 sm:gap-3 items-start justify-center text-[14px] sm:text-[16px] min-w-0 z-20"
       data-name="Link"
     >
       <Link
@@ -85,7 +85,7 @@ export default function Navbar() {
 
       {/* Desktop: nav | logo | CTA — items-start so logo/button stay fixed; pad-left nav only so "Home" lines up with logo (centering the whole column pushed Home upward). */}
       <div className="hidden sm:flex flex-1 items-start justify-between gap-4 min-w-0">
-        <div className="flex-1 flex justify-start min-w-0 sm:pt-[14px] md:pt-[18px]">
+        <div className="flex-1 flex justify-start min-w-0 sm:pt-[14px] md:pt-[12px]">
           <DesktopNavLinks />
         </div>
         <Link
