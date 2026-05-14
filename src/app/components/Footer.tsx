@@ -21,7 +21,7 @@ export function Footer() {
             <Link to="/" className="inline-block relative w-[100px] h-[100px]">
               <img 
                 alt="Larisa Homes" 
-                className="w-full h-full object-contain object-center invert opacity-[0.72]" 
+                className="w-full h-full object-contain object-center invert" 
                 src={larissaLaLogo} 
               />
             </Link>
@@ -49,7 +49,23 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-8 lg:gap-11">
               <Link to={faqTo} className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap">FAQ</Link>
-              <Link to={`/contact#${SECTION_IDS.contact}`} className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap">Contact Us</Link>
+              <Link
+                to={`/contact#${SECTION_IDS.contact}`}
+                onClick={() => {
+                  if (
+                    location.pathname === '/contact' &&
+                    location.hash === `#${SECTION_IDS.contact}`
+                  ) {
+                    document.getElementById(SECTION_IDS.contact)?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    });
+                  }
+                }}
+                className="font-['Inter'] font-medium text-[#12161d] text-[18px] tracking-[-0.44px] hover:opacity-70 transition-opacity whitespace-nowrap"
+              >
+                Contact Us
+              </Link>
             </div>
           </div>
 

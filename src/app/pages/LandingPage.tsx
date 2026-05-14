@@ -55,7 +55,7 @@ const homeFaqs = [
   },
   {
     q: "Are pets allowed in the properties?",
-    a: "Pet policies vary depending on the specific property. Please check the individual property listing details or reach out to our support team to find the perfect pet-friendly stay."
+    a: "Yes, all our units are pet friendly unless stated otherwise. If you have specific questions about your pet, reach out to our team before you book."
   },
   {
     q: "Is there a minimum stay requirement?",
@@ -180,19 +180,39 @@ export default function LandingPage() {
     }
   }, [location.pathname, navigate, scrollToSection]);
 
+  const prevPathnameRef = React.useRef<string | null>(null);
+
+  /**
+   * Hash scrolling + route scroll reset. React Router does not reset window scroll on navigation, so a deep
+   * scroll on /investments can carry over to /contact; with a shorter document the browser clamps Y to the end
+   * and the page looks “stuck at the bottom.” For routes that replace most of the layout, hard-reset Y before
+   * applying a hash target (Footer uses /contact#contact).
+   * On /contact, hash-only updates (e.g. footer) skip the instant jump so smooth scroll isn’t cancelled.
+   */
   React.useEffect(() => {
     const hash = location.hash.replace(/^#/, '');
-    if (!hash) return;
-    requestAnimationFrame(() => scrollToSection(hash));
-  }, [location.pathname, location.hash, scrollToSection]);
-
-  /** SPA keeps scroll position across routes; reset to top on select routes when there is no hash anchor. */
-  React.useEffect(() => {
     const scrollTopRoutes = ['/investments', '/contact', '/privacy-policy', '/terms-of-service', '/cookie-policy'];
-    if (!scrollTopRoutes.includes(location.pathname)) return;
-    if (location.hash) return;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [location.pathname, location.hash]);
+    const prevPath = prevPathnameRef.current;
+    prevPathnameRef.current = location.pathname;
+
+    if (scrollTopRoutes.includes(location.pathname)) {
+      if (!hash) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const stayOnContact =
+        location.pathname === '/contact' && prevPath === '/contact';
+      if (!stayOnContact) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+      requestAnimationFrame(() => scrollToSection(hash));
+      return;
+    }
+
+    if (hash) {
+      requestAnimationFrame(() => scrollToSection(hash));
+    }
+  }, [location.pathname, location.hash, scrollToSection]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -229,24 +249,25 @@ export default function LandingPage() {
           </div>
         </section>
       ) : isContactPage ? (
-        <section id={SECTION_IDS.contact} className={`relative w-full min-h-screen flex flex-col items-center ${SCROLL_ANCHOR_CLASS}`}>
+        <section id={SECTION_IDS.contact} className={`relative w-full min-h-dvh flex flex-col items-stretch ${SCROLL_ANCHOR_CLASS}`}>
           <div className="absolute inset-0 z-0">
             <img src={imgContactBackground} className="w-full h-full object-cover object-center" alt="Dubai Skyline" />
             <div className="absolute inset-0 bg-black/20" />
           </div>
           
           {/* Navbar Overlay */}
-          <div className="relative z-[9997] w-full">
+          <div className="relative z-[9997] w-full shrink-0">
             <Navbar />
           </div>
 
-          <div className="relative z-10 flex flex-col items-center w-full max-w-[852px] px-6 mt-[120px] md:mt-[220px] mb-20 md:mb-32">
-            <h1 className="text-[40px] md:text-5xl lg:text-[64px] font-semibold text-white tracking-[-1.6px] leading-[1.1] md:leading-[80px] text-center mb-[38px] w-full">
+          <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-4 sm:px-6 py-4 sm:py-6 md:py-8">
+            <div className="w-full max-w-[852px] flex flex-col items-center">
+            <h1 className="text-[30px] sm:text-4xl md:text-5xl lg:text-[52px] font-semibold text-white tracking-[-1.6px] leading-[1.15] md:leading-[1.1] text-center mb-4 sm:mb-5 md:mb-6 w-full">
               Get In Touch with Us
             </h1>
 
-            <div className="backdrop-blur-[12px] bg-[#737373]/55 rounded-[24px] w-full p-8 md:p-12 lg:p-[50px] flex flex-col items-center gap-[40px]">
-              <form onSubmit={handleContactSubmit} className="w-full flex flex-col gap-[34px]">
+            <div className="backdrop-blur-[12px] bg-[#737373]/55 rounded-[24px] w-full p-5 sm:p-7 md:p-10 lg:p-11 flex flex-col items-center gap-6 md:gap-8">
+              <form onSubmit={handleContactSubmit} className="w-full flex flex-col gap-4 sm:gap-5 md:gap-6">
                 <div className="flex flex-col gap-2 w-full">
                   <label className="text-[16px] text-white font-normal leading-[1.4]">Full Name</label>
                   <input
@@ -287,7 +308,7 @@ export default function LandingPage() {
                     value={contactForm.message}
                     onChange={handleContactChange}
                     required
-                    className="h-[126px] w-full bg-transparent border border-white rounded-[12px] p-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none"
+                    className="h-[100px] sm:h-[110px] md:h-[126px] w-full bg-transparent border border-white rounded-[12px] p-4 text-white placeholder-white/60 outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none"
                   />
                 </div>
 
@@ -307,6 +328,7 @@ export default function LandingPage() {
                   {contactStatus === 'sending' ? 'Sending...' : 'Get In Touch'}
                 </button>
               </form>
+            </div>
             </div>
           </div>
         </section>
@@ -366,7 +388,7 @@ export default function LandingPage() {
                     <div className="flex flex-col gap-6">
                       <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3">
-                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">Dubai Marina</span>
+                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">Dubai Harbour</span>
                           <div className="flex items-center gap-1 text-[#12161D] font-medium">
                             <Star className="w-[18px] h-[18px] fill-current" />
                             <span className="text-[17px]">4.75</span>
@@ -413,7 +435,7 @@ export default function LandingPage() {
                     <div className="flex flex-col gap-6">
                       <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3">
-                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">DUBAI MARINA</span>
+                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">Dubai Harbour</span>
                           <div className="flex items-center gap-1 text-[#12161D] font-medium">
                             <Star className="w-[18px] h-[18px] fill-current" />
                             <span className="text-[17px]">4.79</span>
@@ -431,7 +453,7 @@ export default function LandingPage() {
                         </div>
                       </div>
                       <p className="text-[17px] lg:text-[18px] text-[#61656E] leading-relaxed">
-                        Unwind in a serene Japanese Zen-inspired space, just steps from your private beach! soaking up the sun or enjoying a cozy night in with 85" TV, this retreat is designed for ultimate comfort. With prompt, high-quality service, we’re here to make your stay stress-free and unforgettable.
+                        Unwind in a serene Japanese Zen-inspired space, just steps from your private beach! soaking up the sun or enjoying a cozy night in with 75" TV, this retreat is designed for ultimate comfort. With prompt, high-quality service, we’re here to make your stay stress-free and unforgettable.
                       </p>
                       <div className="pt-2">
                         <a 
@@ -459,7 +481,7 @@ export default function LandingPage() {
                     <div className="flex flex-col gap-6">
                       <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3">
-                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">Palm Jumeirah</span>
+                          <span className="bg-[#f4f7f9] text-[#12161D] text-sm font-semibold px-4 py-2 rounded-full w-fit uppercase tracking-wider">Dubai Harbour</span>
                           <div className="flex items-center gap-1 text-[#12161D] font-medium">
                             <Star className="w-[18px] h-[18px] fill-current" />
                             <span className="text-[17px]">4.83</span>
@@ -477,7 +499,7 @@ export default function LandingPage() {
                         </div>
                       </div>
                       <p className="text-[17px] lg:text-[18px] text-[#61656E] leading-relaxed">
-                        The newly trend landmark in Dubai! No need to go inside the Palm but enjoy the unique Palm advantages such as OCEAN VIEW, PRIVATE BEACH, Skyline Swimming Pool and Fitness! All you need is here, as the area is very new, you can enjoy the quality Quiet Vocation only at Beachfront Dubai!
+                        The newly trend landmark in Dubai! No need to go inside the Palm but enjoy the unique Palm advantages such as OCEAN VIEW, PRIVATE BEACH, Skyline Swimming Pool and Fitness! All you need is here, as the area is very new, you can enjoy the quality Quiet Vacation only at Beachfront Dubai.
                       </p>
                       <div className="pt-2">
                         <a 
@@ -653,13 +675,13 @@ export default function LandingPage() {
             </div>
             <div className="lg:w-1/2 p-6 md:p-10 lg:p-20 flex flex-col justify-center">
               <div className="bg-white text-[#12161D] text-xs font-bold px-3 py-1.5 rounded uppercase tracking-widest w-fit mb-6">
-                About Larisa Homes
+                About Larisa Holiday Homes
               </div>
               <h2 className="text-3xl md:text-[40px] lg:text-[52px] leading-[1.15] lg:leading-[1.05] font-medium text-[#12161D] mb-6 tracking-tight">
                 Exceptional Airbnb stays and premium hosting services in Dubai.
               </h2>
               <p className="text-[17px] text-[#42444A] leading-relaxed">
-                Whether you're a traveler seeking a luxurious, unforgettable stay in the heart of Dubai, or a property owner looking for end-to-end management that maximizes your earnings, Larisa Homes has you covered. We blend world-class hospitality with cutting-edge technology to deliver flawless experiences for guests and stress-free hosting for owners.
+                Whether you're a traveler seeking a luxurious, unforgettable stay in the heart of Dubai, or a property owner looking for end-to-end management that maximizes your earnings, Larisa Holiday Homes has you covered. We blend world-class hospitality with cutting-edge technology to deliver flawless experiences for guests and stress-free hosting for owners.
               </p>
             </div>
           </div>
@@ -718,7 +740,7 @@ export default function LandingPage() {
                   Hosting Made Simple
                 </h2>
                 <p className="text-[18px] text-[#61656E] leading-relaxed">
-                  Experience a hassle-free journey from onboarding to consistent payouts. We manage the details so you don't have to.
+                  Experience a hassle-free journey from onboarding to consistent payouts.<br /> We manage the details so you don't have to.
                 </p>
               </div>
               
@@ -846,7 +868,7 @@ export default function LandingPage() {
                 Ready to Maximize Your Property's Potential?
               </h2>
               <p className="text-base lg:text-xl text-white/80 leading-relaxed md:leading-relaxed">
-                Join Larisa Homes today and let our expert team transform your space into a high-performing luxury rental. Sit back, relax, and watch your earnings grow.
+                Join Larisa Holiday Homes today and let our expert team transform your space into a high-performing luxury rental. Sit back, relax, and watch your earnings grow.
               </p>
               <div className="pt-4">
                 <Link
