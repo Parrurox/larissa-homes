@@ -74,7 +74,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between pb-6 pt-6 border-t border-[#e5e5e6] gap-6 mt-2">
           <p className="font-['Inter'] font-normal text-[#61656e] text-[14px] tracking-[-0.15px]">
-            © {new Date().getFullYear()} Larisa Homes. All rights reserved.
+            © {new Date().getFullYear()} Larisa Holiday Homes. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10">
             <Link
